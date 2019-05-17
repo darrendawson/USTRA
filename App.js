@@ -12,7 +12,8 @@ import Ustra from './Ustra';
 // DATA DECLARATION ------------------------------------------------------------
 // - Declaring what data is gonna look like for Ustra
 
-// path tags
+
+// path tags are unique IDs for values in your App.state
 var PT_search_parameters = 'search_parameters';
 var PT_about_streamers = "about_streamers";
 var PT_followers = "followers";
@@ -24,7 +25,8 @@ var PT_max_views = "max_views";
 var PT_about_game = "about_game";
 var PT_similar_games = "similar_games";
 
-// data
+
+// This is what App.state will look like
 let data_skeleton = {
   [PT_search_parameters]: {
     [PT_about_streamers]: {
@@ -46,6 +48,7 @@ let data_skeleton = {
 
 }
 
+// ininitialize USTRA
 var ustra = new Ustra(data_skeleton)
 
 
@@ -80,10 +83,17 @@ class App extends Component {
 
   render() {
 
-
+    let truth = this.state.truth;
 
     return (
       <div className="App">
+
+        {/* If Component wants to update searchParameters, it'll call this.props.update(newParameters, this.props.searchParametersTag)*/}
+        <Component
+          searchParameters={truth[PT_search_parameters]}
+          searchParametersTag={PT_search_parameters}
+          update={this.update}
+        />
       </div>
     );
   }
